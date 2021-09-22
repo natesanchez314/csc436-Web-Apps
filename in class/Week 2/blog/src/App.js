@@ -1,9 +1,10 @@
-import UserBar from "./UserBar"
+import Login from "./Login";
+import Logout from "./Logout";
 
 function App() {
   return (
     <div>
-      <User/>
+      <Login/>
     </div>
   )
 }
