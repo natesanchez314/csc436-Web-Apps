@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Login from './Login'
+import Logout from './Logout'
+import Register from './Register'
 
-export default function Register() {
-    return (
-        <form onSubmit={e => e.preventDefault()}>
-            <label htmlFor="register-username">Username:</label>
-            <input type="text" name="register-username" id="register-username" />
-            <label htmlFor="register-password">Password:</label>
-            <input type="password" name="register-password" id="register-password" />
-            <label htmlFor="register-password-repeat">Repeat password:</label>
-            <input type="password" name="register-password-repeat" id="register-password-repeat" />
-            <input type="submit" value="Register" />
-        </form>
-    )
+export default function UserBar() {
+    const [ user, setUser ] = useState('')
+    if (user) {
+        return <Logout user={user} setUser={setUser}/>
+    } else {
+        return (
+            <div>
+                <h3>Login</h3>
+                <Login setUser={setUser}/>
+                <h3>Register</h3>
+                <Register setUser={setUser}/>
+            </div>
+        )
+    }
 }

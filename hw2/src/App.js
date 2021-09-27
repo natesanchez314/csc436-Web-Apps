@@ -1,9 +1,13 @@
 import UserBar from "./UserBar"
+import TodoList from "./TodoList"
+import CreateTodo from "./CreateTodo";
 
 function App() {
   return (
     <div>
-      <User/>
+      <UserBar/>
+      <TodoList/>
+      <CreateTodo />
     </div>
   )
 }
