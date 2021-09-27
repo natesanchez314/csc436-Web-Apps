@@ -4,7 +4,8 @@ import Logout from './Logout'
 import Register from './Register'
 
 export default function UserBar() {
-    const [ user, setUser ] = useState('')
+    const [ user, setUsername ] = useState('')
+    function setUser (e) { setUsername(e.target.value) }
     if (user) {
         return <Logout user={user} setUser={setUser}/>
     } else {
@@ -14,6 +15,10 @@ export default function UserBar() {
                 <Login setUser={setUser}/>
                 <h3>Register</h3>
                 <Register setUser={setUser}/>
+                {// remove this later
+                }
+                <h3>Logout</h3>
+                <Logout user={user} setUser={setUser}/>
             </div>
         )
     }
