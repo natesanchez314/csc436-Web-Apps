@@ -5,7 +5,7 @@ import CreateTodo from "./CreateTodo";
 import appReducer from './reducer';
 
 const initTodos = [
-  /* {
+  {
     title: "test 1",
     content: "this is a test"
   },
@@ -16,20 +16,31 @@ const initTodos = [
   {
     title: "test 3",
     content: "this is a test"
-  } */
+  }
+]
+const initCompleted = [
+  {
+    title: "test 4",
+    content: "this is a test"
+  }
 ]
 
 function App() {
   const [ state, dispatch ] = useReducer(appReducer, {
     user: '',
-    todos: initTodos
+    todos: initTodos,
+    completed: initCompleted
   })
-  const { user, todos } = state
+  const { user, todos, completed } = state
   return (
     <div>
       <UserBar user={user} dispatch={dispatch} />
-      {user && <CreateTodo dispatch={dispatch} />}
-      <TodoList todos={todos}/>
+      {user && 
+        <div>
+        <CreateTodo dispatch={dispatch} />
+        <TodoList todos={todos} completed={completed} dispatchTodo={dispatch}/>
+        </div> 
+      }
     </div>
   )
 }
