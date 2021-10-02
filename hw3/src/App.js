@@ -18,18 +18,11 @@ const initTodos = [
     content: "this is a test"
   }
 ]
-const initCompleted = [
-  {
-    title: "test 4",
-    content: "this is a test"
-  }
-]
 
 function App() {
   const [ state, dispatch ] = useReducer(appReducer, {
     user: '',
     todos: initTodos,
-    completed: initCompleted
   })
   const { user, todos, completed } = state
   return (

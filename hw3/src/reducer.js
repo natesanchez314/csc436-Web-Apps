@@ -38,6 +38,5 @@ export default function appReducer (state, action) {
     return {
         user: userReducer(state.user, action),
         todos: todoReducer(state.todos, action),
-        completed: todoReducer(state.completed, action)
     }
 }
