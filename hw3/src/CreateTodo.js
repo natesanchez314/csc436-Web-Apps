@@ -3,12 +3,13 @@ import React, { useState } from "react";
 export default function CreateTodo({dispatch}) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+    const dateCreated = Date(Date.now())
     function handleTitle(e) { setTitle(e.target.value) }
     function handleContent(e) { setContent(e.target.value) }
     return (
         <form onSubmit={e => {
                 e.preventDefault()
-                dispatch({type: "CREATE", title, content})
+                dispatch({ type: "CREATE", title, content, dateCreated })
             }}>
             <h3>Add new todo</h3>
             <div>
