@@ -17,18 +17,19 @@ function todoReducer(state, action) {
                 title: action.title,
                 content: action.content,
                 dateCreated: action.dateCreated,
+                index: action.index,
+                isComplete: action.isComplete,
                 dispatch: action.dispatch
             }
             return [ newTodo, ...state ]
         case 'TOGGLE':
-            console.log("Toggling todo")
-            //let i = state.indexOf(action.todo)
-            //console.log(state)
+            // Acessing the variable this way felt weird but it also seemed to be the
+            // easiest so what can you do
+            state[state.length - action.index - 1].isComplete = action.completionStatus
+            state[state.length - action.index - 1].dateCompleted = Date(Date.now())
             return state
         case 'DELETE':
-            console.log("deleteing todo")
-            //state.splice(action.todo)
-            return state
+            return state.filter((t) => t.index !== action.index)
         default:
             return state
     }

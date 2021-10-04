@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
-export default function CreateTodo({dispatch}) {
+export default function CreateTodo({index, dispatch}) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const dateCreated = Date(Date.now())
+    var isComplete = false
     function handleTitle(e) { setTitle(e.target.value) }
     function handleContent(e) { setContent(e.target.value) }
+    function clearForm() { setTitle(''); setContent('') }
     return (
         <form onSubmit={e => {
                 e.preventDefault()
-                dispatch({ type: "CREATE", title, content, dateCreated })
+                clearForm()
+                dispatch({ type: "CREATE", title, content, dateCreated, index, isComplete })
             }}>
             <h3>Add new todo</h3>
             <div>
@@ -19,7 +22,7 @@ export default function CreateTodo({dispatch}) {
             <br/>
             <textarea value={content} onChange={handleContent}/>
             <br/>
-            <input type="submit" value="Submit" disabled={title.length === 0}/>
+            <input type="submit" value="Submit" disabled={title.length === 0} />
         </form>
     )
 }
