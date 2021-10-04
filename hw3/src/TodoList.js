@@ -5,8 +5,8 @@ export default function TodoList({todos = [], dispatchTodo}) {
     console.log(todos)
     let notCompleted = todos.filter((t) => t.completed === false)
     let isCompleted = todos.filter((t) => t.completed === true)
-    console.log(notCompleted)
-    console.log(isCompleted)
+    //console.log(notCompleted)
+    //console.log(isCompleted)
     return(
         <div>
             <h2>Todo</h2>

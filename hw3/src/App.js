@@ -4,34 +4,23 @@ import TodoList from "./TodoList"
 import CreateTodo from "./CreateTodo";
 import appReducer from './reducer';
 
-const initTodos = [
-  {
-    title: "test 1",
-    content: "this is a test"
-  },
-  {
-    title: "test 2",
-    content: "this is a test"
-  },
-  {
-    title: "test 3",
-    content: "this is a test"
-  }
-]
+var initIndex = 1
 
 function App() {
   const [ state, dispatch ] = useReducer(appReducer, {
     user: '',
-    todos: initTodos,
+    todos: [],
   })
-  const { user, todos, completed } = state
+  const { user, todos } = state
+  //console.log(todos)
+  //console.log(index)
   return (
     <div>
       <UserBar user={user} dispatch={dispatch} />
       {user && 
         <div>
-        <CreateTodo dispatch={dispatch} />
-        <TodoList todos={todos} completed={completed} dispatchTodo={dispatch}/>
+        <CreateTodo index={todos.length} dispatch={dispatch} />
+        <TodoList todos={todos} dispatchTodo={dispatch}/>
         </div> 
       }
     </div>

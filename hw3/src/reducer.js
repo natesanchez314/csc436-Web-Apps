@@ -13,10 +13,13 @@ function userReducer (state, action) {
 function todoReducer(state, action) {
     switch (action.type) {
         case 'CREATE':
+            console.log(action)
+            console.log(state)
             const newTodo = {
                 title: action.title,
                 content: action.content,
                 dateCreated: action.dateCreated,
+                index: action.index,
                 dispatch: action.dispatch
             }
             return [ newTodo, ...state ]
@@ -26,9 +29,7 @@ function todoReducer(state, action) {
             //console.log(state)
             return state
         case 'DELETE':
-            console.log("deleteing todo")
-            //state.splice(action.todo)
-            return state
+            return state.filter((t) => t.index != action.index)
         default:
             return state
     }
