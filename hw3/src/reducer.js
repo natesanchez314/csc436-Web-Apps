@@ -23,12 +23,13 @@ function todoReducer(state, action) {
             }
             return [ newTodo, ...state ]
         case 'TOGGLE':
-            console.log(state)
+            // Acessing the variable this way felt weird but it also seemed to be the
+            // easiest so what can you do
             state[state.length - action.index - 1].isComplete = action.completionStatus
             state[state.length - action.index - 1].dateCompleted = Date(Date.now())
             return state
         case 'DELETE':
-            return state.filter((t) => t.index != action.index)
+            return state.filter((t) => t.index !== action.index)
         default:
             return state
     }
