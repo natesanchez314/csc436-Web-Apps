@@ -17,19 +17,22 @@ function todoReducer(state, action) {
                 title: action.title,
                 content: action.content,
                 dateCreated: action.dateCreated,
-                index: action.index,
-                isComplete: action.isComplete,
-                dispatch: action.dispatch
+                isComplete: false,
+                dateCompleted: undefined
             }
             return [ newTodo, ...state ]
         case 'TOGGLE':
-            // Acessing the variable this way felt weird but it also seemed to be the
-            // easiest so what can you do
-            state[state.length - action.index - 1].isComplete = action.completionStatus
-            state[state.length - action.index - 1].dateCompleted = Date(Date.now())
-            return state
+            return state.map((t, i) => {
+                if (i === action.todoId) {
+                    t.isComplete = action.isComplete
+                    t.dateCompleted = Date.now()
+                }
+                return t
+            })
         case 'DELETE':
-            return state.filter((t) => t.index !== action.index)
+            return state.filter((t, i) => i !== action.todoId)
+        case 'FETCH_TODOS':
+            return state
         default:
             return state
     }
