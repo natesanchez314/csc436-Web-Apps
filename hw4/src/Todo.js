@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { StateContext } from "./context";
 
-export default function Todo({title, content, dateCreated, index, isComplete, dispatch}) {
-    const [dateCompleted, toggleCompletionDate] = useState(null)
-    // index is actually flipped to what the index in the todolist array actually is
-    function toggleTodo() {
-        toggleCompletionDate(Date(Date.now()))
-        dispatch({type: "TOGGLE", index: index, completionStatus: !isComplete})
-    }
-    function delTodo() {
-        dispatch({type: "DELETE", index: index})
-    }
+export default function Todo({title, content, dateCreated, isComplete, dateCompleted, todoId}) {
+    const {dispatch} = useContext(StateContext)
+    console.log(isComplete)
     return(
         <div>
-            <input type="checkbox" checked={isComplete} onChange={toggleTodo} />
+            <input type="checkbox" onClick={() => dispatch({type: "TOGGLE", completionStatus: !isComplete, todoId: todoId})} /> 
             <label><b><big>{title}</big></b></label>
             <p>{content}</p>
-            <p>Date created: {dateCreated}</p>
-            {dateCompleted && <label>dateCompleted: {dateCompleted}</label>}
+            <p>Date created: {new Date(dateCreated).toLocaleDateString('en-us')}</p>
+            {dateCompleted && <label>Date completed: {new Date(dateCompleted).toLocaleDateString('en-us')}</label>}
             <br/>
-            <button onClick={delTodo}>Delete</button>
+            <button onClick={() => dispatch({type: "DELETE", todoId: todoId})}>Delete</button>
             <br/><br/>
         </div>
     )
