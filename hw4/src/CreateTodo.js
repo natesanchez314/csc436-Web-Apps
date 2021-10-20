@@ -3,6 +3,7 @@ import { StateContext } from "./context"
 import { useResource } from 'react-request-hook'
 
 export default function CreateTodo() {
+
     const {dispatch} = useContext(StateContext)
     const [ title, setTitle ] = useState('')
     const [ content, setContent ] = useState('')
@@ -22,7 +23,12 @@ export default function CreateTodo() {
     }
     useEffect(() => {
         if (todo && todo.data) {
-            dispatch({ type: "CREATE", title: todo.data.title, content: todo.data.content, dateCreated: todo.data.dateCreated })
+            dispatch({
+                type: "CREATE",
+                title: todo.data.title,
+                content: todo.data.content,
+                dateCreated: todo.data.dateCreated
+            })
         }
     }, [todo])
 
@@ -31,8 +37,6 @@ export default function CreateTodo() {
             e => {
                 e.preventDefault()
                 handleCreate()
-                //dispatch({ type: "CREATE", title, content, dateCreated })
-                //clearForm()
             }}>
             <h3>Add new todo</h3>
             <div>
