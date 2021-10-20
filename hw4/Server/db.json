@@ -6,6 +6,7 @@
       "content": "Wash, dry, and fold",
       "author": "testuser",
       "isComplete": false,
+      "dateCreated": null,
       "dateCompleted": null
     },
     {
@@ -15,6 +16,12 @@
       "author": "testuser",
       "isComplete": false,
       "dateCompleted": null
+    },
+    {
+      "title": "test",
+      "content": "test",
+      "dateCreated": "Wed Oct 20 2021 16:11:55 GMT-0500 (Central Daylight Time)",
+      "id": 3
     }
   ],
   "users": [

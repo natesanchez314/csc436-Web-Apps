@@ -7,16 +7,17 @@ import appReducer from './reducer';
 import { StateContext } from './context';
 
 function App() {
+
+  const [ todos, getTodos ] = useResource(() => ({
+    url: '/todos',
+    method: 'get'
+  }))
+
   const [ state, dispatch ] = useReducer(appReducer, {
     user: '',
     todos: [],
     completed: []
   })
-
-   const [ todos, getTodos ] = useResource(() => ({
-    url: '/todos',
-    method: 'get'
-  }))
 
   useEffect(getTodos, [])
 

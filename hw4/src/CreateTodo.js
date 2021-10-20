@@ -1,20 +1,38 @@
-import React, { useContext, useState } from "react";
-import { StateContext } from "./context";
+import React, { useContext, useEffect, useState } from "react"
+import { StateContext } from "./context"
+import { useResource } from 'react-request-hook'
 
 export default function CreateTodo() {
     const {dispatch} = useContext(StateContext)
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [ title, setTitle ] = useState('')
+    const [ content, setContent ] = useState('')
+    const [ todo, createTodo ] = useResource(({ title, content, dateCreated }) => ({
+        url: '/todos',
+        method: 'post',
+        data: { title, content, dateCreated }
+    }))
+
     const dateCreated = Date(Date.now())
     function handleTitle(e) { setTitle(e.target.value) }
     function handleContent(e) { setContent(e.target.value) }
     function clearForm() { setTitle(''); setContent('') }
+    function handleCreate() {
+        createTodo({ title, content, dateCreated })
+        clearForm()
+    }
+    useEffect(() => {
+        if (todo && todo.data) {
+            dispatch({ type: "CREATE", title: todo.data.title, content: todo.data.content, dateCreated: todo.data.dateCreated })
+        }
+    }, [todo])
+
     return (
         <form onSubmit={
             e => {
                 e.preventDefault()
-                dispatch({ type: "CREATE", title, content, dateCreated })
-                clearForm()
+                handleCreate()
+                //dispatch({ type: "CREATE", title, content, dateCreated })
+                //clearForm()
             }}>
             <h3>Add new todo</h3>
             <div>
