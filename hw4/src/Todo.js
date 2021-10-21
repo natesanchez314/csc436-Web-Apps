@@ -3,7 +3,8 @@ import { StateContext } from "./context";
 import { useResource } from "react-request-hook";
 
 export default function Todo({title, content, dateCreated, isComplete, dateCompleted, id}) {
-
+    console.log(id)
+    console.log(isComplete)
     const {dispatch} = useContext(StateContext)
     const [ todoToDel, deleteTodo ] = useResource(() => ({
         url: `/todos/${id}`,
@@ -27,7 +28,7 @@ export default function Todo({title, content, dateCreated, isComplete, dateCompl
     }, [todoToDel])
     useEffect(() => {
         if (todoToToggle && todoToToggle.data) {
-            dispatch({type: "TOGGLE", completionStatus: !{isComplete}, todoId: id, dateCompleted: todoToToggle.data.dateCompleted})
+            dispatch({type: "TOGGLE", isComplete: todoToToggle.data.isComplete, todoId: id, dateCompleted: todoToToggle.data.dateCompleted})
         }
     }, [todoToToggle])
 
