@@ -7,22 +7,22 @@ import appReducer from './reducer';
 import { StateContext } from './context';
 
 function App() {
-  const [ state, dispatch ] = useReducer(appReducer, {
-    user: '',
-    todos: [],
-    completed: []
-  })
 
-   const [ todos, getTodos ] = useResource(() => ({
+  const [ todos, getTodos ] = useResource(() => ({
     url: '/todos',
     method: 'get'
   }))
+
+  const [ state, dispatch ] = useReducer(appReducer, {
+    user: '',
+    todos: []
+  })
 
   useEffect(getTodos, [])
 
   useEffect(() => {
     if (todos && todos.data) {
-      dispatch({ type: 'FETCH_TODOS', todos: todos.data })
+      dispatch({ type: 'FETCH_TODOS', todos: todos.data.reverse() })
     }
   }, [todos]) 
  
