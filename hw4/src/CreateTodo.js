@@ -7,10 +7,12 @@ export default function CreateTodo() {
     const {dispatch} = useContext(StateContext)
     const [ title, setTitle ] = useState('')
     const [ content, setContent ] = useState('')
-    const [ todo, createTodo ] = useResource(({ title, content, dateCreated }) => ({
+    const isComplete = false
+    const dateCompleted = null
+    const [ todo, createTodo ] = useResource(({ title, content, dateCreated, isComplete, dateCompleted }) => ({
         url: '/todos',
         method: 'post',
-        data: { title, content, dateCreated }
+        data: { title, content, dateCreated, isComplete, dateCompleted }
     }))
 
     const dateCreated = Date(Date.now())
@@ -18,7 +20,7 @@ export default function CreateTodo() {
     function handleContent(e) { setContent(e.target.value) }
     function clearForm() { setTitle(''); setContent('') }
     function handleCreate() {
-        createTodo({ title, content, dateCreated })
+        createTodo({ title, content, dateCreated, isComplete, dateCompleted })
         clearForm()
     }
     useEffect(() => {
@@ -27,7 +29,8 @@ export default function CreateTodo() {
                 type: "CREATE",
                 title: todo.data.title,
                 content: todo.data.content,
-                dateCreated: todo.data.dateCreated
+                dateCreated: todo.data.dateCreated,
+                todoId: todo.data.id
             })
         }
     }, [todo])

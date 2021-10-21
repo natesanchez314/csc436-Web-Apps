@@ -1,27 +1,36 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "Do Laundry",
-      "content": "Wash, dry, and fold",
-      "author": "testuser",
-      "isComplete": false,
-      "dateCreated": null,
-      "dateCompleted": null
+      "title": "test1",
+      "content": "",
+      "dateCreated": "Wed Oct 20 2021 23:38:20 GMT-0500 (Central Daylight Time)",
+      "isComplete": true,
+      "dateCompleted": 1634791614612,
+      "id": 1
     },
     {
-      "id": 2,
-      "title": "Pay Bills",
-      "content": "Car, Electric, Gas",
-      "author": "testuser",
+      "title": "test2",
+      "content": "",
+      "dateCreated": "Wed Oct 20 2021 23:38:23 GMT-0500 (Central Daylight Time)",
       "isComplete": false,
-      "dateCompleted": null
+      "dateCompleted": null,
+      "id": 2
     },
     {
-      "title": "test",
-      "content": "test",
-      "dateCreated": "Wed Oct 20 2021 16:11:55 GMT-0500 (Central Daylight Time)",
-      "id": 3
+      "title": "test5",
+      "content": "",
+      "dateCreated": "Wed Oct 20 2021 23:39:43 GMT-0500 (Central Daylight Time)",
+      "isComplete": true,
+      "dateCompleted": 1634792187505,
+      "id": 5
+    },
+    {
+      "title": "test3",
+      "content": "",
+      "dateCreated": "Wed Oct 20 2021 23:54:36 GMT-0500 (Central Daylight Time)",
+      "isComplete": true,
+      "dateCompleted": 1634792599122,
+      "id": 6
     }
   ],
   "users": [

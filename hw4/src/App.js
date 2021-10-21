@@ -15,15 +15,14 @@ function App() {
 
   const [ state, dispatch ] = useReducer(appReducer, {
     user: '',
-    todos: [],
-    completed: []
+    todos: []
   })
 
   useEffect(getTodos, [])
 
   useEffect(() => {
     if (todos && todos.data) {
-      dispatch({ type: 'FETCH_TODOS', todos: todos.data })
+      dispatch({ type: 'FETCH_TODOS', todos: todos.data.reverse() })
     }
   }, [todos]) 
  
