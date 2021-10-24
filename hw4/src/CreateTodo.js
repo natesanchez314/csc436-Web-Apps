@@ -24,7 +24,7 @@ export default function CreateTodo() {
         clearForm()
     }
     useEffect(() => {
-        if (todo && todo.data) {
+        if (todo && todo.isLoading === false && todo.data) {
             dispatch({
                 type: "CREATE",
                 title: todo.data.title,
