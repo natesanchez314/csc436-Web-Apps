@@ -22,6 +22,9 @@ function todoReducer(state, action) {
                 id: action.todoId
             }
             return [ newTodo, ...state ]
+            //const filterTodo = state.filter((t) => t.id === newTodo.id)
+            //if (filterTodo === 0) return [ newTodo, ...state ]
+            //else return state
         case 'TOGGLE':
             return state.map((t) => {
                 if (t.id === action.todoId) {
