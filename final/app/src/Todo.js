@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { StateContext } from "./context";
 import { useResource } from "react-request-hook";
 
+import { Card, Button } from "react-bootstrap";
+
 export default function Todo({title, content, dateCreated, isComplete, dateCompleted, id}) {
     console.log(id)
     console.log(isComplete)
@@ -33,15 +35,16 @@ export default function Todo({title, content, dateCreated, isComplete, dateCompl
     }, [todoToToggle])
 
     return(
-        <div>
-            <input type="checkbox" checked={isComplete} onClick={handleToggle} /> 
-            <label><b><big>{title}</big></b></label>
-            <p>{content}</p>
+        <Card>
+        <Card.Body>
+            <Card.Title><input type="checkbox" checked={isComplete} onClick={handleToggle} /> {title}</Card.Title>
+            <Card.Text>{content}</Card.Text>
             <p>Date created: {new Date(dateCreated).toLocaleDateString('en-us')}</p>
             {dateCompleted && <label>Date completed: {new Date(dateCompleted).toLocaleDateString('en-us')}</label>}
             {dateCompleted && <br/>}
-            <button onClick={handleDelete}>Delete</button>
+            <Button onClick={handleDelete}>Delete</Button>
             <br/><br/>
-        </div>
+        </Card.Body>
+        </Card>
     )
 }

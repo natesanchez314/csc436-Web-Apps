@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react"
 import { StateContext } from "./context"
 import { useResource } from 'react-request-hook'
 
+import { Form, Button } from "react-bootstrap";
+
 export default function CreateTodo() {
 
     const {dispatch} = useContext(StateContext)
@@ -36,7 +38,7 @@ export default function CreateTodo() {
     }, [todo])
 
     return (
-        <form onSubmit={
+        <Form onSubmit={
             e => {
                 e.preventDefault()
                 handleCreate()
@@ -49,7 +51,7 @@ export default function CreateTodo() {
             <br/>
             <textarea value={content} onChange={handleContent}/>
             <br/>
-            <input type="submit" value="Submit" disabled={title.length === 0} />
-        </form>
+            <Button type="submit" value="Submit" disabled={title.length === 0} >Create</Button>
+        </Form>
     )
 }

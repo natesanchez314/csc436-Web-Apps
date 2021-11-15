@@ -1,17 +1,19 @@
 import React, { useContext } from "react";
 import { StateContext } from "../context";
 
+import { Form, Button } from "react-bootstrap";
+
 export default function Logout() {
     const {state, dispatch} = useContext(StateContext)
     const {user} = state
     return (
-        <form onSubmit={
+        <Form onSubmit={
             e => {
                 e.preventDefault();
                 dispatch({type:"LOGOUT"})
             }}>
-            Logged in as: <b>{user}</b>
-            <input type="submit" value="Logout" />
-        </form>
+            <Form.Label htmlfor="Logout"> Logged in as: {user}  </Form.Label>
+            <Button type="submit" value="Logout" >Logout</Button>
+        </Form>
     )
 }

@@ -5,6 +5,8 @@ import TodoList from "./TodoList"
 import CreateTodo from "./CreateTodo";
 import appReducer from './reducer';
 import { StateContext } from './context';
+import { Container } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -31,13 +33,15 @@ function App() {
   return (
     <div>
       <StateContext.Provider value={{state: state, dispatch: dispatch}}>
-        <UserBar />
-        {user && 
-          <div>
-          <CreateTodo />
-          <TodoList />
-          </div> 
-        }
+        <Container>
+          <UserBar />
+          {user && 
+            <div>
+            <CreateTodo />
+            <TodoList />
+            </div> 
+          }
+        </Container>
       </StateContext.Provider>
     </div>
   )
