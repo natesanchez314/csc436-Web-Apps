@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const TodoSchema = new Schema(
     {
         title: {type: String, required: true},
-        content: {type: String, required: false},
+        content: {type: String, required: true},
         dateCreated: {type: Date, required: true}, 
         isComplete: {type: Boolean, required: true},
         dateCompleted: {type: Date, required: false},
@@ -12,4 +12,4 @@ const TodoSchema = new Schema(
     }
 )
 
-module.exports = mongoose.model('Todo', TodoSchema)
+module.exports = mongoose.model('Todo', TodoSchema) 

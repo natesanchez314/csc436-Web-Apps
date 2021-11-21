@@ -1,15 +1,19 @@
 function userReducer (state, action) {
     switch (action.type) {
-        case 'FETCH_USERS':
-            return action.users
         case 'LOGIN':
         case 'REGISTER':
-            return action.username
+            return {
+                'username': action.username,
+                'access_token': action.access_token
+            }
         case 'LOGOUT':
-            return ''
+            return {
+                'username': undefined,
+                'access_token': undefined
+            }
         default:
             return state
-    }
+    }   
 }
 
 function todoReducer(state, action) {
@@ -19,24 +23,23 @@ function todoReducer(state, action) {
                 title: action.title,
                 content: action.content,
                 dateCreated: action.dateCreated,
-                isComplete: false,
+                isComplete: action.isComplete,
                 dateCompleted: undefined,
-                id: action.todoId
+                _id: action.todoId
             }
             return [ newTodo, ...state ]
-            //const filterTodo = state.filter((t) => t.id === newTodo.id)
-            //if (filterTodo === 0) return [ newTodo, ...state ]
-            //else return state
         case 'TOGGLE':
             return state.map((t) => {
-                if (t.id === action.todoId) {
+                if (t._id === action.todoId) {
+                    console.log("toggling")
+                    console.log(action)
                     t.isComplete = action.isComplete
                     t.dateCompleted = action.dateCompleted
                 }
                 return t
             })
         case 'DELETE':
-            return state.filter((t) => t.id !== action.todoId)
+            return state.filter((t) => t._id !== action.todoId)
         case 'FETCH_TODOS':
             return action.todos
         default:
@@ -44,9 +47,19 @@ function todoReducer(state, action) {
     }
 }
 
+function usersReducer (state, action) {
+    switch (action.type) {
+        case 'FETCH_USERS':
+            return action.users
+        default:
+            return state
+    }   
+}
+
 export default function appReducer (state, action) {
     return {
         user: userReducer(state.user, action),
         todos: todoReducer(state.todos, action),
+        users: userReducer(state.users, action)
     }
 }

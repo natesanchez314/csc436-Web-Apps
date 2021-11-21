@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Todo from "./Todo"
 import { StateContext } from './context'
 
-export default function TodoList({userId}) {
+export default function TodoList() {
     const {state} = useContext(StateContext)
     const {todos} = state
     const incomplete = todos.filter((t) => t.isComplete === false)

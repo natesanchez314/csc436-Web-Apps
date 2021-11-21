@@ -12,7 +12,7 @@ export default function Logout() {
                 e.preventDefault();
                 dispatch({type:"LOGOUT"})
             }}>
-            <Form.Label htmlfor="Logout"> Logged in as: {user}  </Form.Label>
+            <Form.Label htmlFor="Logout"> Logged in as: {user.username}  </Form.Label>
             <br />
             <Button type="submit" value="Logout" >Logout</Button>
         </Form>

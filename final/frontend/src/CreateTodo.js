@@ -11,10 +11,11 @@ export default function CreateTodo({show, handleClose}) {
     const [ title, setTitle ] = useState('')
     const [ content, setContent ] = useState('')
     const isComplete = false
-    const dateCompleted = null
+    const dateCompleted = undefined 
     const [ todo, createTodo ] = useResource(({ title, content, dateCreated, isComplete, dateCompleted }) => ({
-        url: '/todos',
+        url: '/todo',
         method: 'post',
+        headers: { "Authorization": `${user.access_token}`},
         data: { title, content, dateCreated, isComplete, dateCompleted }
     }))
 
@@ -28,13 +29,16 @@ export default function CreateTodo({show, handleClose}) {
     }
     useEffect(() => {
         if (todo && todo.isLoading === false && todo.data) {
+            console.log("data")
+            console.log(todo.data)
             dispatch({
                 type: "CREATE",
                 title: todo.data.title,
                 content: todo.data.content,
                 dateCreated: todo.data.dateCreated,
-                todoId: todo.data.id,
-                userId: user
+                isComplete: todo.data.isComplete,
+                dateCompleted: todo.data.dateCompleted,
+                todoId: todo.data._id,
             })
         }
     }, [todo])
@@ -46,6 +50,7 @@ export default function CreateTodo({show, handleClose}) {
                 (e) => {
                     e.preventDefault()
                     handleCreate()
+                    handleClose()
                 }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Create new</Modal.Title>

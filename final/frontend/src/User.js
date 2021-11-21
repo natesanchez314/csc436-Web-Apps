@@ -1,14 +1,15 @@
 import React from "react";
 
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-navi";
 
-export default function User({username}) {
+export default function User({userId, username}) {
 
     return(
         <Card>
             <Card.Body>
                 <Card.Title>
-                    <Button variant="link" onClick={(e) => {}}>{username}</Button>
+                    <Link href={`/users/${userId}`}>{username}</Link>
                 </Card.Title>
             </Card.Body>
         </Card>
