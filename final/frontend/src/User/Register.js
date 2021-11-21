@@ -15,9 +15,9 @@ export default function Register({show, handleClose}) {
     })
 
     const [ user, registerUser ] = useResource(( username, password ) => ({
-        url: '/users',
+        url: '/auth/register',
         method: 'post',
-        data: { username, password }
+        data: { username, password, 'passwordConfirmation': password }
     }))
 
     useEffect(() => {
@@ -32,6 +32,7 @@ export default function Register({show, handleClose}) {
             e => {
                 e.preventDefault();
                 registerUser(formData.username, formData.password)
+                handleClose()
             }}>
             <Modal.Header closeButton>
                 <Modal.Title>Register</Modal.Title>

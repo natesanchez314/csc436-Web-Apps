@@ -4,17 +4,19 @@ import { useResource } from "react-request-hook";
 
 import { Card, Button } from "react-bootstrap";
 
-export default function Todo({title, content, dateCreated, isComplete, dateCompleted, id}) {
-    //console.log(id)
-    //console.log(isComplete)
-    const {dispatch} = useContext(StateContext)
+export default function Todo({title, content, dateCreated, isComplete, dateCompleted, _id}) {
+
+    const {state, dispatch} = useContext(StateContext)
+    const {user} = state
     const [ todoToDel, deleteTodo ] = useResource(() => ({
-        url: `/todos/${id}`,
-        method: 'delete'
+        url: `/todo/${_id}`,
+        method: 'delete',
+        headers: { "Authorization": `${user.access_token}`}
     }))
     const [ todoToToggle, toggleTodo ] = useResource(() => ({
-        url: `/todos/${id}`,
+        url: `/todo/${_id}`,
         method: 'patch',
+        headers: { "Authorization": `${user.access_token}`},
         data: { "isComplete": !isComplete, "dateCompleted": Date.now() }
     }))
     function handleDelete() {
@@ -24,20 +26,22 @@ export default function Todo({title, content, dateCreated, isComplete, dateCompl
         toggleTodo()
     }
     useEffect(() => {
-        if (todoToDel && todoToDel.data) {
-            dispatch({type: "DELETE", todoId: id})
+        if (todoToDel && todoToDel.isLoading === false && todoToDel.data) {
+            dispatch({type: "DELETE", todoId: _id})
         }
     }, [todoToDel])
     useEffect(() => {
-        if (todoToToggle && todoToToggle.data) {
-            dispatch({type: "TOGGLE", isComplete: todoToToggle.data.isComplete, todoId: id, dateCompleted: todoToToggle.data.dateCompleted})
+        if (todoToToggle && todoToToggle.isLoading === false && todoToToggle.data) {
+            console.log("Data")
+            console.log(todoToToggle.data.todo)
+            dispatch({type: "TOGGLE", isComplete: !isComplete, todoId: _id, dateCompleted: todoToToggle.data.todo.dateCompleted })
         }
     }, [todoToToggle])
 
     return(
         <Card>
         <Card.Body>
-            <Card.Title><input type="checkbox" checked={isComplete} onClick={handleToggle} /> {title}</Card.Title>
+            <Card.Title><input type="checkbox" checked={isComplete} onChange={handleToggle} /> {title}</Card.Title>
             <Card.Text>{content}</Card.Text>
             <p>Date created: {new Date(dateCreated).toLocaleDateString('en-us')}</p>
             {dateCompleted && <label>Date completed: {new Date(dateCompleted).toLocaleDateString('en-us')}</label>}

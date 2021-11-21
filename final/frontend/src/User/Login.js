@@ -13,16 +13,18 @@ export default function Login({show, handleClose}) {
     function handleUsername(e) { setUsername(e.target.value) }
     function handlePassword(e) { setPassword(e.target.value) }
     const [ user, loginUser ] = useResource((username, password) => ({
-        url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
-        method: 'get'
+        url: 'auth/login',
+        method: 'post',
+        data: {username, password}
     }))
     useEffect(() => {
-        if (user && user.data) {
-            if (user.data.length > 0) {
-                dispatch({type:"LOGIN", username})
-                setLoginFailed(false)
-            } else {
+        if (user && user.isLoading === false && (user.data || user.error)) {
+            if (user.error) {
                 setLoginFailed(true)
+            } else {
+                console.log(user)
+                setLoginFailed(false)
+                dispatch({type:"LOGIN", username, access_token: user.data.access_token})
             }
         }
     }, [user])
@@ -32,6 +34,7 @@ export default function Login({show, handleClose}) {
                 (e) => {
                     e.preventDefault()
                     loginUser(username, password)
+                    handleClose()
                 }} >
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>

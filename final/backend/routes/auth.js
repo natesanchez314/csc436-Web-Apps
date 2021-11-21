@@ -12,7 +12,7 @@ const privateKey = process.env.JWT_PRIVATE_KEY
 
 router.use(function(req, res, next) {
   bcrypt.genSalt(saltRounds, function(err, salt) {
-    bcrypt.hash(req.body.password, salt, function(err, hash) {
+    bcrypt.hash(req.body.password, salt, function(error, hash) {
       req.hashedPassword = hash
         next()
       })

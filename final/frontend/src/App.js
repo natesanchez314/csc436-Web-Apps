@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
-import { useResource } from 'react-request-hook'
+import React, { useReducer } from 'react'
 import HeaderBar from "./HeaderBar";
 import appReducer from './reducer';
 import { StateContext } from './context';
@@ -13,32 +12,33 @@ import { Router, View } from 'react-navi';
 
 function App() {
 
-  const [ todos, getTodos ] = useResource(() => ({
+  /* const [ todos, getTodos ] = useResource(() => ({
     url: '/todos',
     method: 'get'
   }))
-
+ */
   /* const [ todos, getTodos ] = useResource(() => ({
     url: '/users/userid',
     method: 'get'
   })) */
 
   const [ state, dispatch ] = useReducer(appReducer, {
-    user: '',
-    todos: []
+    user: {},
+    todos: [],
+    users: []
   })
 
-  useEffect(getTodos, [])
+  /* useEffect(getTodos, [])
 
   useEffect(() => {
     if (todos && todos.data) {
       dispatch({ type: 'FETCH_TODOS', todos: todos.data.reverse() })
     }
-  }, [todos]) 
+  }, [todos])  */
  
   const { user } = state
 
-  const routes = mount({
+  const myRoutes = mount({
     '/': route({ view: <HomePage />}),
     '/users': route({ view: <UsersPage />}),
     '/users/:userid': route(req => {
@@ -49,7 +49,7 @@ function App() {
   return (
     <div>
       <StateContext.Provider value={{state: state, dispatch: dispatch}}>
-        <Router routes={routes}>
+        <Router routes={myRoutes}>
           <Container>
             <HeaderBar />
             <View />

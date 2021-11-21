@@ -8,7 +8,7 @@ const privateKey = process.env.JWT_PRIVATE_KEY;
 router.use(function(req, res, next) {
     if (req.header("Authorization")) {
         try {
-            req.payload = jwt.verify(req.header("Authorization"))
+            req.payload = jwt.verify(req.header("Authorization"), privateKey, { algorithms: ['RS256'] })
         } catch (error) {
             return res.status(401).json({"error": error.message})
         }
@@ -25,7 +25,20 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:todoId', async function(req, res, next) {
     const todo = await Todo.findOne().where('_id').equals(req.params.todoId).exec()
-    return res.status(200).json(todo)
+    return res.status(200).json({"todo": todo})
+})
+
+router.patch('/:todoId', async function (req, res, next) {
+    const todo = await Todo.findByIdAndUpdate(req.params.todoId, {
+        "isComplete": req.body.isComplete,
+        "dateCompleted": req.body.dateCompleted
+    }).exec()
+    return res.status(200).json({"todo": todo})
+})
+
+router.delete('/:todoId', async function (req, res, next) {
+    const todo = await Todo.findByIdAndDelete(req.params.todoId).exec()
+    return res.status(200).json({"todo": todo})
 })
 
 router.post('/', async function (req, res) {
@@ -35,12 +48,12 @@ router.post('/', async function (req, res) {
         "dateCreated": req.body.dateCreated,
         "isComplete": req.body.isComplete,
         "dateCompleted": req.body.dateCompleted,
-        "author": req.body.author
+        "author": req.payload.id
     })
 
     await todo.save().then( savedTodo => {
         return res.status(201).json({
-            "id": savedTodo._id,
+            "_id": savedTodo._id,
             "title": savedTodo.title,
             "content": savedTodo.content,
             "dateCreated": savedTodo.dateCreated,

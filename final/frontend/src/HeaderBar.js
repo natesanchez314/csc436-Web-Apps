@@ -15,7 +15,7 @@ export default function HeaderBar() {
         <Navbar>
             <Container>
                 <UserBar />
-                {user && <Button variant="primary" onClick={(e) => setShowCreateTodo(true)}>Create new</Button> }
+                {user.username && <Button variant="primary" onClick={(e) => setShowCreateTodo(true)}>Create new</Button> }
                 <CreateTodo show={showCreateTodo} handleClose={() => setShowCreateTodo(false)} />
             </Container>
         </Navbar>

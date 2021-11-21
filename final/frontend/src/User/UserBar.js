@@ -9,11 +9,12 @@ import { Button } from 'react-bootstrap'
 
 export default function UserBar() {
     const {state} = useContext(StateContext)
+    const {user} = state
 
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
 
-    if (state.user) {
+    if (user.username) {
         return <Logout />
     } else {
         return (
